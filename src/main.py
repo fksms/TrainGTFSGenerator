@@ -17,6 +17,7 @@ operatorsInfo = [
         "agency_id": "jreast",
         "agency_name": "JR東日本",
         "agency_url": "",
+        "railway_id": "JR-East",
         "gtfs_output_file_name": "JR-East-Train.gtfs.zip",
     },
     # 京王電鉄
@@ -24,6 +25,7 @@ operatorsInfo = [
         "agency_id": "keio",
         "agency_name": "京王電鉄",
         "agency_url": "",
+        "railway_id": "Keio",
         "gtfs_output_file_name": "Keio-Train.gtfs.zip",
     },
     # 首都圏新都市鉄道（つくばエクスプレス）
@@ -31,6 +33,7 @@ operatorsInfo = [
         "agency_id": "mir",
         "agency_name": "首都圏新都市鉄道",
         "agency_url": "",
+        "railway_id": "MIR",
         "gtfs_output_file_name": "MIR-Train.gtfs.zip",
     },
     # 相模鉄道（相鉄）
@@ -38,6 +41,7 @@ operatorsInfo = [
         "agency_id": "sotetsu",
         "agency_name": "相模鉄道",
         "agency_url": "",
+        "railway_id": "Sotetsu",
         "gtfs_output_file_name": "Sotetsu-Train.gtfs.zip",
     },
     # 多摩都市モノレール
@@ -45,6 +49,7 @@ operatorsInfo = [
         "agency_id": "tamamonorail",
         "agency_name": "多摩都市モノレール",
         "agency_url": "",
+        "railway_id": "TamaMonorail",
         "gtfs_output_file_name": "TamaMonorail-Train.gtfs.zip",
     },
     # 東武鉄道
@@ -52,6 +57,7 @@ operatorsInfo = [
         "agency_id": "tobu",
         "agency_name": "東武鉄道",
         "agency_url": "",
+        "railway_id": "Tobu",
         "gtfs_output_file_name": "Tobu-Train.gtfs.zip",
     },
     # 東京都交通局
@@ -59,6 +65,7 @@ operatorsInfo = [
         "agency_id": "toei",
         "agency_name": "東京都交通局",
         "agency_url": "",
+        "railway_id": "Toei",
         "gtfs_output_file_name": "Toei-Train.gtfs.zip",
     },
     # 東京メトロ
@@ -66,6 +73,7 @@ operatorsInfo = [
         "agency_id": "tokyometro",
         "agency_name": "東京メトロ",
         "agency_url": "",
+        "railway_id": "TokyoMetro",
         "gtfs_output_file_name": "TokyoMetro-Train.gtfs.zip",
     },
     # 東京臨海高速鉄道
@@ -73,6 +81,7 @@ operatorsInfo = [
         "agency_id": "twr",
         "agency_name": "東京臨海高速鉄道",
         "agency_url": "",
+        "railway_id": "TWR",
         "gtfs_output_file_name": "TWR-Train.gtfs.zip",
     },
     # 横浜市交通局
@@ -80,6 +89,7 @@ operatorsInfo = [
         "agency_id": "yokohamamunicipal",
         "agency_name": "横浜市交通局",
         "agency_url": "",
+        "railway_id": "YokohamaMunicipal",
         "gtfs_output_file_name": "YokohamaMunicipal-Train.gtfs.zip",
     },
     # -----------ODPTにないやつ（欲しい）----------- #
@@ -88,6 +98,7 @@ operatorsInfo = [
         "agency_id": "keikyu",
         "agency_name": "京急電鉄",
         "agency_url": "",
+        "railway_id": "Keikyu",
         "gtfs_output_file_name": "Keikyu-Train.gtfs.zip",
     },
     # 京成電鉄
@@ -95,6 +106,7 @@ operatorsInfo = [
         "agency_id": "keisei",
         "agency_name": "京成電鉄",
         "agency_url": "",
+        "railway_id": "Keisei",
         "gtfs_output_file_name": "Keisei-Train.gtfs.zip",
     },
     # 小田急電鉄
@@ -102,6 +114,7 @@ operatorsInfo = [
         "agency_id": "odakyu",
         "agency_name": "小田急電鉄",
         "agency_url": "",
+        "railway_id": "Odakyu",
         "gtfs_output_file_name": "Odakyu-Train.gtfs.zip",
     },
     # 西武鉄道
@@ -109,6 +122,7 @@ operatorsInfo = [
         "agency_id": "seibu",
         "agency_name": "西武鉄道",
         "agency_url": "",
+        "railway_id": "Seibu",
         "gtfs_output_file_name": "Seibu-Train.gtfs.zip",
     },
     # 東急電鉄
@@ -116,6 +130,7 @@ operatorsInfo = [
         "agency_id": "tokyu",
         "agency_name": "東急電鉄",
         "agency_url": "",
+        "railway_id": "Tokyu",
         "gtfs_output_file_name": "Tokyu-Train.gtfs.zip",
     },
     # 横浜高速鉄道（みなとみらい線）
@@ -123,6 +138,7 @@ operatorsInfo = [
         "agency_id": "minatomirai",
         "agency_name": "横浜高速鉄道（みなとみらい線）",
         "agency_url": "",
+        "railway_id": "Minatomirai",
         "gtfs_output_file_name": "Minatomirai-Train.gtfs.zip",
     },
     # 埼玉高速鉄道
@@ -130,6 +146,7 @@ operatorsInfo = [
         "agency_id": "saitamarailway",
         "agency_name": "埼玉高速鉄道",
         "agency_url": "",
+        "railway_id": "SaitamaRailway",
         "gtfs_output_file_name": "SR-Train.gtfs.zip",
     },
     # 東葉高速鉄道
@@ -137,6 +154,7 @@ operatorsInfo = [
         "agency_id": "toyorapid",
         "agency_name": "東葉高速鉄道",
         "agency_url": "",
+        "railway_id": "ToyoRapid",
         "gtfs_output_file_name": "TOYO-Train.gtfs.zip",
     },
     # ゆりかもめ
@@ -144,6 +162,7 @@ operatorsInfo = [
         "agency_id": "yurikamome",
         "agency_name": "ゆりかもめ",
         "agency_url": "",
+        "railway_id": "Yurikamome",
         "gtfs_output_file_name": "Yurikamome-Train.gtfs.zip",
     },
     # --------ODPTにないやつ（どっちでもいい）-------- #
@@ -152,6 +171,7 @@ operatorsInfo = [
         "agency_id": "tokyomonorail",
         "agency_name": "東京モノレール",
         "agency_url": "",
+        "railway_id": "TokyoMonorail",
         "gtfs_output_file_name": "TokyoMonorail-Train.gtfs.zip",
     },
     # 新京成電鉄
@@ -159,6 +179,7 @@ operatorsInfo = [
         "agency_id": "shinkeisei",
         "agency_name": "新京成電鉄",
         "agency_url": "",
+        "railway_id": "ShinKeisei",
         "gtfs_output_file_name": "ShinKeisei-Train.gtfs.zip",
     },
     # 北総鉄道
@@ -166,6 +187,7 @@ operatorsInfo = [
         "agency_id": "hokuso",
         "agency_name": "北総鉄道",
         "agency_url": "",
+        "railway_id": "Hokuso",
         "gtfs_output_file_name": "Hokuso-Train.gtfs.zip",
     },
 ]
@@ -199,6 +221,12 @@ def main():
         # calendar_dates.txtの生成
         file = open("dist/calendar_dates.txt", "w", encoding="UTF-8")
         text = generate_calendar_dates_txt(holidays)
+        file.write(text)
+        file.close()
+
+        # feed_info.txtの生成
+        file = open("dist/feed_info.txt", "w", encoding="UTF-8")
+        text = generate_feed_info_txt(operatorInfo, start_date, end_date)
         file.write(text)
         file.close()
 
@@ -318,6 +346,40 @@ def generate_calendar_dates_txt(holidays: list) -> str:
         body.append("1," + holiday.strftime("%Y%m%d") + ",1")
 
     bodyStr = "\n".join(body)
+
+    return headerStr + "\n" + bodyStr
+
+
+# feed_info.txtの生成
+def generate_feed_info_txt(
+    operatorInfo: dict, start_date: datetime, end_date: datetime
+) -> str:
+
+    header = [
+        "feed_publisher_name",
+        "feed_publisher_url",
+        "feed_lang",
+        "feed_start_date",
+        "feed_end_date",
+        "feed_version",
+        "feed_contact_email",
+        "feed_contact_url",
+    ]
+
+    headerStr = ",".join(header)
+
+    body = [
+        operatorInfo["agency_name"],
+        operatorInfo["agency_url"],
+        "ja",
+        start_date.strftime("%Y%m%d"),
+        end_date.strftime("%Y%m%d"),
+        start_date.strftime("%Y%m%d"),
+        "",
+        "",
+    ]
+
+    bodyStr = ",".join(body)
 
     return headerStr + "\n" + bodyStr
 
