@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "train_gtfs_generator"
+version = "0.1.0"
+description = ""
+authors = ["Shogo Fukushima <59794072+fksms@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+jpholiday = "^0.1.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
