@@ -1,0 +1,3 @@
+[submodule "mini-tokyo-3d"]
+	path = mini-tokyo-3d
+	url = https://github.com/nagix/mini-tokyo-3d.git

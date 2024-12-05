@@ -2,10 +2,11 @@ import os
 import glob
 import zipfile
 import datetime
+import json
 
 import jpholiday
 
-# ダイヤの有効期間
+# GTFSデータの有効期間
 start_date = datetime.date(2024, 1, 1)
 end_date = datetime.date(2025, 12, 31)
 
@@ -207,28 +208,29 @@ def main():
     for operatorInfo in operatorsInfo:
 
         # agency.txtの生成
-        file = open("dist/agency.txt", "w", encoding="UTF-8")
-        text = generate_agency_txt(operatorInfo)
-        file.write(text)
-        file.close()
+        with open("dist/agency.txt", "w", encoding="UTF-8") as f:
+            text = generate_agency_txt(operatorInfo)
+            f.write(text)
 
         # calendar.txtの生成
-        file = open("dist/calendar.txt", "w", encoding="UTF-8")
-        text = generate_calendar_txt(start_date, end_date)
-        file.write(text)
-        file.close()
+        with open("dist/calendar.txt", "w", encoding="UTF-8") as f:
+            text = generate_calendar_txt(start_date, end_date)
+            f.write(text)
 
         # calendar_dates.txtの生成
-        file = open("dist/calendar_dates.txt", "w", encoding="UTF-8")
-        text = generate_calendar_dates_txt(holidays)
-        file.write(text)
-        file.close()
+        with open("dist/calendar_dates.txt", "w", encoding="UTF-8") as f:
+            text = generate_calendar_dates_txt(holidays)
+            f.write(text)
 
         # feed_info.txtの生成
-        file = open("dist/feed_info.txt", "w", encoding="UTF-8")
-        text = generate_feed_info_txt(operatorInfo, start_date, end_date)
-        file.write(text)
-        file.close()
+        with open("dist/feed_info.txt", "w", encoding="UTF-8") as f:
+            text = generate_feed_info_txt(operatorInfo, start_date, end_date)
+            f.write(text)
+
+        # routes.txtの生成
+        with open("dist/routes.txt", "w", encoding="UTF-8") as f:
+            text = generate_routes_txt(operatorInfo)
+            f.write(text)
 
         # zip圧縮
         with zipfile.ZipFile(
@@ -380,6 +382,61 @@ def generate_feed_info_txt(
     ]
 
     bodyStr = ",".join(body)
+
+    return headerStr + "\n" + bodyStr
+
+
+# routes.txtの生成
+def generate_routes_txt(operatorInfo: dict) -> str:
+
+    header = [
+        "route_id",
+        "agency_id",
+        "route_short_name",
+        "route_long_name",
+        "route_desc",
+        "route_type",
+        "route_url",
+        "route_color",
+        "route_text_color",
+    ]
+
+    headerStr = ",".join(header)
+
+    body = []
+
+    # ターゲットとなるJSONのパス
+    target_json_path = "mini-tokyo-3d/data/railways.json"
+
+    # JSONをオブジェクトとして読み込み
+    with open(target_json_path, "r", encoding="UTF-8") as f:
+        railways_obj = json.load(f)
+
+    # route_id
+    route_id = 1
+
+    for railway_obj in railways_obj:
+        # 部分一致
+        if operatorInfo["railway_id"] in railway_obj["id"]:
+            route_name = railway_obj["title"]["ja"]
+            route_color = railway_obj["color"][1:]  # カラーコードの最初の"#"を取り除く
+
+            route = [
+                str(route_id),
+                operatorInfo["agency_id"],
+                "",
+                route_name,
+                "",
+                "2",  # 鉄道は"2"を指定する
+                "",
+                route_color,
+                "",
+            ]
+
+            body.append(",".join(route))
+            route_id += 1
+
+    bodyStr = "\n".join(body)
 
     return headerStr + "\n" + bodyStr
 
