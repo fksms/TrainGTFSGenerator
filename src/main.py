@@ -3,6 +3,7 @@ import glob
 import zipfile
 import datetime
 import json
+from typing import Tuple
 
 import jpholiday
 
@@ -218,6 +219,10 @@ def main():
         # stops.txtの生成
         with open("dist/stops.txt", "w", encoding="UTF-8") as f:
             f.write(texts["stops_txt"])
+
+        # stop_times.txtの生成
+        with open("dist/stop_times.txt", "w", encoding="UTF-8") as f:
+            f.write(texts["stop_times_txt"])
 
         # zip圧縮
         with zipfile.ZipFile(
@@ -481,6 +486,19 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json"
         )
     ):
+        # --------------------------- バグ対処用 --------------------------- #
+        # 鶴見線、鶴見海芝浦支線、鶴見大川支線の一部のタイムテーブルに
+        # 時間が記載されていないものが存在し、処理ができないため、処理をスキップさせる。
+        if (
+            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumi.json"
+            or path
+            == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiokawabranch.json"
+            or path
+            == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiumishibaurabranch.json"
+        ):
+            continue
+        # --------------------------- バグ対処用 --------------------------- #
+
         with open(path, "r", encoding="UTF-8") as f:
             timetables_obj = json.load(f)
 
@@ -512,32 +530,30 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
         # 駅情報を1要素ずつ処理
         for station_obj in stations_obj:
-            # "railway"が設定されていないものもあるので、"railway"が存在するかを先に確認
-            if "railway" in station_obj.keys():
-                if station_obj["railway"] == route_id:
+            if station_obj.get("railway") == route_id:
 
-                    stop = [
-                        station_obj["id"],
-                        "",
-                        station_obj["title"]["ja"],
-                        "",
-                        str(station_obj["coord"][1]),
-                        str(station_obj["coord"][0]),
-                        station_obj["id"],
-                        "",
-                        "0",  # 鉄道は"0"を指定で良いはず
-                        "",
-                        "",
-                        "",
-                    ]
+                stop = [
+                    station_obj["id"],
+                    "",
+                    station_obj["title"]["ja"],
+                    "",
+                    str(station_obj["coord"][1]),
+                    str(station_obj["coord"][0]),
+                    station_obj["id"],
+                    "",
+                    "0",  # 鉄道は"0"を指定で良いはず
+                    "",
+                    "",
+                    "",
+                ]
 
-                    stops_body.append(",".join(stop))
+                stops_body.append(",".join(stop))
         # ==================== stops.txtの生成部分 ==================== #
 
-        # ==================== trips.txtの生成部分 ==================== #
         # 時刻表を1要素ずつ処理
         for timetable_obj in timetables_obj:
 
+            # ==================== trips.txtの生成部分 ==================== #
             # 経路ID
             route_id = timetable_obj["r"]
 
@@ -550,14 +566,15 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             # 運行日ID
             service_id = get_service_id_from_trip_id(trip_id)
 
-            # 終点の駅名（山手線等、終点が設定されていないものもあるので、"ds"が存在するかを先に確認）
-            headsign = ""
-            if "ds" in timetable_obj.keys():
-                # （"ds"が複数設定されているものが存在しており、0要素目を選択する形で問題無いか検討中）
-                headsign_obj = get_station_obj_from_station_id(
-                    stations_obj, timetable_obj["ds"][0]
-                )
-                headsign = headsign_obj["title"]["ja"]
+            # 終点の駅情報オブジェクト
+            headsign_obj = (
+                get_station_obj_from_station_id(stations_obj, timetable_obj["ds"][0])
+                if "ds" in timetable_obj.keys()
+                else None
+            )
+
+            # 終点の駅名
+            headsign = headsign_obj["title"]["ja"] if headsign_obj is not None else ""
 
             # 経路情報オブジェクト
             route_obj = get_route_obj_from_route_id(railways_obj, route_id)
@@ -565,11 +582,8 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             # 方向ID（"ascending"と一致した場合は"0"、"descending"と一致した場合は"1"）
             direction_id = "0" if route_obj["ascending"] == direction else "1"
 
-            # 便結合ID（路線を跨ぐような列車は、"block_id"に次の便IDを設定。設定されていないものもあるので、"nt"が存在するかを先に確認）
-            block_id = ""
-            if "nt" in timetable_obj.keys():
-                # （"nt"が複数設定されているものが存在しており、0要素目を選択する形で問題無いか検討中）
-                block_id = timetable_obj["nt"][0]
+            # 便結合ID（路線を跨ぐような列車は、"block_id"に次の便IDを設定）
+            block_id = timetable_obj["nt"][0] if "nt" in timetable_obj.keys() else ""
 
             trip = [
                 route_id,
@@ -585,16 +599,125 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             ]
 
             trips_body.append(",".join(trip))
-        # ==================== trips.txtの生成部分 ==================== #
+            # ==================== trips.txtの生成部分 ==================== #
+
+            # ==================== stop_times.txtの生成部分 ==================== #
+            # 経路ID
+            route_id = timetable_obj["r"]
+
+            # 便ID
+            trip_id = timetable_obj["id"]
+
+            # 列車の方向
+            direction = timetable_obj["d"]
+
+            # 経路情報オブジェクト
+            route_obj = get_route_obj_from_route_id(railways_obj, route_id)
+
+            # 出発駅
+            origin_station = (
+                timetable_obj["os"][0] if "os" in timetable_obj.keys() else ""
+            )
+
+            # 終点駅
+            destination_station = (
+                timetable_obj["ds"][0] if "ds" in timetable_obj.keys() else ""
+            )
+
+            # 該当経路を最初に通過・停車する駅
+            start_station = timetable_obj["tt"][0]["s"]
+
+            # 該当経路を最後に通過・停車する駅
+            end_station = timetable_obj["tt"][-1]["s"]
+
+            # --------------- 部分配列の作成 --------------- #
+            # 経路の駅一覧リスト
+            # （昇順"ascending"の場合はそのまま、降順"descending"の場合は反転させる）
+            route_stations_list = (
+                route_obj["stations"]
+                if route_obj["ascending"] == direction
+                else list(reversed(route_obj["stations"]))
+            )
+
+            # "start_station"の位置を前からサーチ
+            start_index = route_stations_list.index(start_station)
+
+            # "end_station"の位置を後ろからサーチ
+            end_index = 0
+            for i in range(len(route_stations_list) - 1, -1, -1):
+                if route_stations_list[i] == end_station:
+                    end_index = i
+                    break
+
+            # 部分集合の生成（該当の列車が実際に通る区間）
+            stations_list_subset = route_stations_list[start_index : end_index + 1]
+            # --------------- 部分配列の作成 --------------- #
+
+            stop_counter = 0
+
+            # 通過・停車する駅を1要素ずつ処理
+            for index, station in enumerate(stations_list_subset):
+                # 停車
+                if station == timetable_obj["tt"][stop_counter]["s"]:
+
+                    # 出発時刻と到着時刻
+                    arrival_time, departure_time = get_a_d_times_from_timetable_element(
+                        timetable_obj["tt"][stop_counter]
+                    )
+
+                    # 乗車可能なら0、乗車不可なら1
+                    pickup_type = "1" if station == destination_station else "0"
+
+                    # 降車可能なら0、降車不可なら1
+                    drop_off_type = "1" if station == origin_station else "0"
+
+                    stop_time = [
+                        trip_id,
+                        arrival_time + ":00",
+                        departure_time + ":00",
+                        station,
+                        str(index + 1),
+                        "",
+                        pickup_type,
+                        drop_off_type,
+                        "",
+                        "1",  # 1を設定
+                    ]
+
+                    stop_times_body.append(",".join(stop_time))
+
+                    stop_counter += 1
+
+                # 通過
+                else:
+
+                    stop_time = [
+                        trip_id,
+                        "",
+                        "",
+                        station,
+                        str(index + 1),
+                        "",
+                        "1",  # 乗車不可
+                        "1",  # 降車不可
+                        "",
+                        "1",  # 1を設定
+                    ]
+
+                    stop_times_body.append(",".join(stop_time))
+
+            # ==================== stop_times.txtの生成部分 ==================== #
 
     routes_body_str = "\n".join(routes_body)
     stops_body_str = "\n".join(stops_body)
     trips_body_str = "\n".join(trips_body)
+    stop_times_body_str = "\n".join(stop_times_body)
 
     return {
         "routes_txt": routes_header_str + "\n" + routes_body_str,
         "stops_txt": stops_header_str + "\n" + stops_body_str,
         "trips_txt": trips_header_str + "\n" + trips_body_str,
+        "stop_times_txt": stop_times_header_str + "\n" + stop_times_body_str,
     }
 
 
@@ -630,6 +753,27 @@ def get_route_obj_from_route_id(routes_obj: dict, route_id: str) -> dict:
     for route_obj in routes_obj:
         if route_id == route_obj["id"]:
             return route_obj
+
+
+# タイムテーブルの要素から、到着時刻と出発時刻を抽出
+def get_a_d_times_from_timetable_element(element: dict) -> Tuple[str, str]:
+
+    # "a"と"d"のどちらも存在する場合
+    if "a" in element.keys() and "d" in element.keys():  # キーチェック
+        return element["a"], element["d"]
+
+    # "a"のみ存在する場合
+    elif "a" in element.keys():  # キーチェック
+        return element["a"], element["a"]
+
+    # "d"のみ存在する場合
+    elif "d" in element.keys():  # キーチェック
+        return element["d"], element["d"]
+
+    # "a"と"d"のどちらも存在しない場合
+    else:
+        print("不適切なタイムテーブルが存在します。")
+        return None
 
 
 if __name__ == "__main__":
