@@ -11,14 +11,13 @@ start_date = datetime.date(2024, 1, 1)
 end_date = datetime.date(2025, 12, 31)
 
 # 各オペレーターの情報
-operatorsInfo = [
+operators_info = [
     # ---------------ODPTにあるやつ--------------- #
     # 東日本旅客鉄道（JR東日本）
     {
         "agency_id": "jreast",
         "agency_name": "JR東日本",
         "agency_url": "",
-        "railway_id": "JR-East",
         "gtfs_output_file_name": "JR-East-Train.gtfs.zip",
     },
     # 京王電鉄
@@ -26,7 +25,6 @@ operatorsInfo = [
         "agency_id": "keio",
         "agency_name": "京王電鉄",
         "agency_url": "",
-        "railway_id": "Keio",
         "gtfs_output_file_name": "Keio-Train.gtfs.zip",
     },
     # 首都圏新都市鉄道（つくばエクスプレス）
@@ -34,7 +32,6 @@ operatorsInfo = [
         "agency_id": "mir",
         "agency_name": "首都圏新都市鉄道",
         "agency_url": "",
-        "railway_id": "MIR",
         "gtfs_output_file_name": "MIR-Train.gtfs.zip",
     },
     # 相模鉄道（相鉄）
@@ -42,7 +39,6 @@ operatorsInfo = [
         "agency_id": "sotetsu",
         "agency_name": "相模鉄道",
         "agency_url": "",
-        "railway_id": "Sotetsu",
         "gtfs_output_file_name": "Sotetsu-Train.gtfs.zip",
     },
     # 多摩都市モノレール
@@ -50,7 +46,6 @@ operatorsInfo = [
         "agency_id": "tamamonorail",
         "agency_name": "多摩都市モノレール",
         "agency_url": "",
-        "railway_id": "TamaMonorail",
         "gtfs_output_file_name": "TamaMonorail-Train.gtfs.zip",
     },
     # 東武鉄道
@@ -58,7 +53,6 @@ operatorsInfo = [
         "agency_id": "tobu",
         "agency_name": "東武鉄道",
         "agency_url": "",
-        "railway_id": "Tobu",
         "gtfs_output_file_name": "Tobu-Train.gtfs.zip",
     },
     # 東京都交通局
@@ -66,7 +60,6 @@ operatorsInfo = [
         "agency_id": "toei",
         "agency_name": "東京都交通局",
         "agency_url": "",
-        "railway_id": "Toei",
         "gtfs_output_file_name": "Toei-Train.gtfs.zip",
     },
     # 東京メトロ
@@ -74,7 +67,6 @@ operatorsInfo = [
         "agency_id": "tokyometro",
         "agency_name": "東京メトロ",
         "agency_url": "",
-        "railway_id": "TokyoMetro",
         "gtfs_output_file_name": "TokyoMetro-Train.gtfs.zip",
     },
     # 東京臨海高速鉄道
@@ -82,7 +74,6 @@ operatorsInfo = [
         "agency_id": "twr",
         "agency_name": "東京臨海高速鉄道",
         "agency_url": "",
-        "railway_id": "TWR",
         "gtfs_output_file_name": "TWR-Train.gtfs.zip",
     },
     # 横浜市交通局
@@ -90,7 +81,6 @@ operatorsInfo = [
         "agency_id": "yokohamamunicipal",
         "agency_name": "横浜市交通局",
         "agency_url": "",
-        "railway_id": "YokohamaMunicipal",
         "gtfs_output_file_name": "YokohamaMunicipal-Train.gtfs.zip",
     },
     # -----------ODPTにないやつ（欲しい）----------- #
@@ -99,7 +89,6 @@ operatorsInfo = [
         "agency_id": "keikyu",
         "agency_name": "京急電鉄",
         "agency_url": "",
-        "railway_id": "Keikyu",
         "gtfs_output_file_name": "Keikyu-Train.gtfs.zip",
     },
     # 京成電鉄
@@ -107,7 +96,6 @@ operatorsInfo = [
         "agency_id": "keisei",
         "agency_name": "京成電鉄",
         "agency_url": "",
-        "railway_id": "Keisei",
         "gtfs_output_file_name": "Keisei-Train.gtfs.zip",
     },
     # 小田急電鉄
@@ -115,7 +103,6 @@ operatorsInfo = [
         "agency_id": "odakyu",
         "agency_name": "小田急電鉄",
         "agency_url": "",
-        "railway_id": "Odakyu",
         "gtfs_output_file_name": "Odakyu-Train.gtfs.zip",
     },
     # 西武鉄道
@@ -123,7 +110,6 @@ operatorsInfo = [
         "agency_id": "seibu",
         "agency_name": "西武鉄道",
         "agency_url": "",
-        "railway_id": "Seibu",
         "gtfs_output_file_name": "Seibu-Train.gtfs.zip",
     },
     # 東急電鉄
@@ -131,7 +117,6 @@ operatorsInfo = [
         "agency_id": "tokyu",
         "agency_name": "東急電鉄",
         "agency_url": "",
-        "railway_id": "Tokyu",
         "gtfs_output_file_name": "Tokyu-Train.gtfs.zip",
     },
     # 横浜高速鉄道（みなとみらい線）
@@ -139,7 +124,6 @@ operatorsInfo = [
         "agency_id": "minatomirai",
         "agency_name": "横浜高速鉄道（みなとみらい線）",
         "agency_url": "",
-        "railway_id": "Minatomirai",
         "gtfs_output_file_name": "Minatomirai-Train.gtfs.zip",
     },
     # 埼玉高速鉄道
@@ -147,7 +131,6 @@ operatorsInfo = [
         "agency_id": "saitamarailway",
         "agency_name": "埼玉高速鉄道",
         "agency_url": "",
-        "railway_id": "SaitamaRailway",
         "gtfs_output_file_name": "SR-Train.gtfs.zip",
     },
     # 東葉高速鉄道
@@ -155,7 +138,6 @@ operatorsInfo = [
         "agency_id": "toyorapid",
         "agency_name": "東葉高速鉄道",
         "agency_url": "",
-        "railway_id": "ToyoRapid",
         "gtfs_output_file_name": "TOYO-Train.gtfs.zip",
     },
     # ゆりかもめ
@@ -163,7 +145,6 @@ operatorsInfo = [
         "agency_id": "yurikamome",
         "agency_name": "ゆりかもめ",
         "agency_url": "",
-        "railway_id": "Yurikamome",
         "gtfs_output_file_name": "Yurikamome-Train.gtfs.zip",
     },
     # --------ODPTにないやつ（どっちでもいい）-------- #
@@ -172,7 +153,6 @@ operatorsInfo = [
         "agency_id": "tokyomonorail",
         "agency_name": "東京モノレール",
         "agency_url": "",
-        "railway_id": "TokyoMonorail",
         "gtfs_output_file_name": "TokyoMonorail-Train.gtfs.zip",
     },
     # 新京成電鉄
@@ -180,7 +160,6 @@ operatorsInfo = [
         "agency_id": "shinkeisei",
         "agency_name": "新京成電鉄",
         "agency_url": "",
-        "railway_id": "ShinKeisei",
         "gtfs_output_file_name": "ShinKeisei-Train.gtfs.zip",
     },
     # 北総鉄道
@@ -188,7 +167,6 @@ operatorsInfo = [
         "agency_id": "hokuso",
         "agency_name": "北総鉄道",
         "agency_url": "",
-        "railway_id": "Hokuso",
         "gtfs_output_file_name": "Hokuso-Train.gtfs.zip",
     },
 ]
@@ -205,11 +183,11 @@ def main():
     for path in glob.glob("dist/*.zip"):
         os.remove(path)
 
-    for operatorInfo in operatorsInfo:
+    for operator_info in operators_info:
 
         # agency.txtの生成
         with open("dist/agency.txt", "w", encoding="UTF-8") as f:
-            text = generate_agency_txt(operatorInfo)
+            text = generate_agency_txt(operator_info)
             f.write(text)
 
         # calendar.txtの生成
@@ -224,17 +202,19 @@ def main():
 
         # feed_info.txtの生成
         with open("dist/feed_info.txt", "w", encoding="UTF-8") as f:
-            text = generate_feed_info_txt(operatorInfo, start_date, end_date)
+            text = generate_feed_info_txt(operator_info, start_date, end_date)
             f.write(text)
 
-        # routes.txtの生成
-        with open("dist/routes.txt", "w", encoding="UTF-8") as f:
-            text = generate_routes_txt(operatorInfo)
+        # trips.txtの生成
+        with open("dist/trips.txt", "w", encoding="UTF-8") as f:
+            text = generate_trips_stop_times_stops_routes_txt(operator_info)[
+                "trips_txt"
+            ]
             f.write(text)
 
         # zip圧縮
         with zipfile.ZipFile(
-            "dist/" + operatorInfo["gtfs_output_file_name"],
+            "dist/" + operator_info["gtfs_output_file_name"],
             "w",
             compression=zipfile.ZIP_DEFLATED,
             compresslevel=-1,
@@ -243,7 +223,7 @@ def main():
                 # zip書き込み
                 zf.write(
                     path,
-                    arcname=os.path.splitext(operatorInfo["gtfs_output_file_name"])[0]
+                    arcname=os.path.splitext(operator_info["gtfs_output_file_name"])[0]
                     + "/"
                     + os.path.basename(path),
                 )
@@ -253,11 +233,11 @@ def main():
             os.remove(path)
 
         # 生成状況表示
-        print('"' + operatorInfo["gtfs_output_file_name"] + '" ' + "Generated")
+        print('"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
 
 
 # agency.txtの生成
-def generate_agency_txt(operatorInfo: dict) -> str:
+def generate_agency_txt(operator_info: dict) -> str:
 
     header = [
         "agency_id",
@@ -270,12 +250,12 @@ def generate_agency_txt(operatorInfo: dict) -> str:
         "agency_email",
     ]
 
-    headerStr = ",".join(header)
+    header_str = ",".join(header)
 
     body = [
-        operatorInfo["agency_id"],
-        operatorInfo["agency_name"],
-        operatorInfo["agency_url"],
+        operator_info["agency_id"],
+        operator_info["agency_name"],
+        operator_info["agency_url"],
         "Asia/Tokyo",
         "ja",
         "",
@@ -283,9 +263,9 @@ def generate_agency_txt(operatorInfo: dict) -> str:
         "",
     ]
 
-    bodyStr = ",".join(body)
+    body_str = ",".join(body)
 
-    return headerStr + "\n" + bodyStr
+    return header_str + "\n" + body_str
 
 
 # calendar.txtの生成
@@ -304,28 +284,42 @@ def generate_calendar_txt(start_date: datetime, end_date: datetime) -> str:
         "end_date",
     ]
 
-    headerStr = ",".join(header)
+    header_str = ",".join(header)
 
     body = []
 
-    # 1番目の"0"は平日の運行区分、2〜8番目はを各曜日の運行区分（0なら非適用、1なら適用）を指している
+    # 平日ダイヤ（"0"）
     body.append(
         "0,1,1,1,1,1,0,0,"
         + start_date.strftime("%Y%m%d")
         + ","
         + end_date.strftime("%Y%m%d")
     )
-    # 1番目の"1"は休日の運行区分、2〜8番目はを各曜日の運行区分（0なら非適用、1なら適用）を指している
+    # 土曜・日曜ダイヤ（"1"）
     body.append(
         "1,0,0,0,0,0,1,1,"
         + start_date.strftime("%Y%m%d")
         + ","
         + end_date.strftime("%Y%m%d")
     )
+    # 土曜ダイヤ（"2"）
+    body.append(
+        "2,0,0,0,0,0,1,0,"
+        + start_date.strftime("%Y%m%d")
+        + ","
+        + end_date.strftime("%Y%m%d")
+    )
+    # 日曜ダイヤ（"3"）
+    body.append(
+        "3,0,0,0,0,0,0,1,"
+        + start_date.strftime("%Y%m%d")
+        + ","
+        + end_date.strftime("%Y%m%d")
+    )
 
-    bodyStr = "\n".join(body)
+    body_str = "\n".join(body)
 
-    return headerStr + "\n" + bodyStr
+    return header_str + "\n" + body_str
 
 
 # calendar_dates.txtの生成
@@ -337,24 +331,26 @@ def generate_calendar_dates_txt(holidays: list) -> str:
         "exception_type",
     ]
 
-    headerStr = ",".join(header)
+    header_str = ",".join(header)
 
     body = []
 
     for holiday in holidays:
-        # 最初の"0"は平日の運行区分、最後の"2"は運行区分非適用であることを指している
+        # 祝日は平日ダイヤ（"0"）非適用（"2"）
         body.append("0," + holiday.strftime("%Y%m%d") + ",2")
-        # 最初の"1"は休日の運行区分、最後の"1"は運行区分適用であることを指している
+        # 祝日は土曜・日曜（"1"）ダイヤ適用（"1"）
         body.append("1," + holiday.strftime("%Y%m%d") + ",1")
+        # 祝日は日曜ダイヤ（"3"）適用（"1"）
+        body.append("3," + holiday.strftime("%Y%m%d") + ",1")
 
-    bodyStr = "\n".join(body)
+    body_str = "\n".join(body)
 
-    return headerStr + "\n" + bodyStr
+    return header_str + "\n" + body_str
 
 
 # feed_info.txtの生成
 def generate_feed_info_txt(
-    operatorInfo: dict, start_date: datetime, end_date: datetime
+    operator_info: dict, start_date: datetime, end_date: datetime
 ) -> str:
 
     header = [
@@ -368,11 +364,11 @@ def generate_feed_info_txt(
         "feed_contact_url",
     ]
 
-    headerStr = ",".join(header)
+    header_str = ",".join(header)
 
     body = [
-        operatorInfo["agency_name"],
-        operatorInfo["agency_url"],
+        operator_info["agency_name"],
+        operator_info["agency_url"],
         "ja",
         start_date.strftime("%Y%m%d"),
         end_date.strftime("%Y%m%d"),
@@ -381,15 +377,53 @@ def generate_feed_info_txt(
         "",
     ]
 
-    bodyStr = ",".join(body)
+    body_str = ",".join(body)
 
-    return headerStr + "\n" + bodyStr
+    return header_str + "\n" + body_str
 
 
+# trips.txt
+# stop_times.txt
+# stops.txt
 # routes.txtの生成
-def generate_routes_txt(operatorInfo: dict) -> str:
+def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
-    header = [
+    # 列車時刻表の格納場所
+    train_timetables_dirpath = "mini-tokyo-3d/data/train-timetables"
+
+    # 列車種別表の格納場所
+    railways_json_path = "mini-tokyo-3d/data/railways.json"
+
+    # 駅情報の格納場所
+    stations_json_path = "mini-tokyo-3d/data/stations.json"
+
+    trips_header = [
+        "route_id",
+        "service_id",
+        "trip_id",
+        "trip_headsign",
+        "trip_short_name",
+        "direction_id",
+        "block_id",
+        "shape_id",
+        "wheelchair_accessible",
+        "bikes_allowed",
+    ]
+
+    stop_times_header = [
+        "trip_id",
+        "arrival_time",
+        "departure_time",
+        "stop_id",
+        "stop_sequence",
+        "stop_headsign",
+        "pickup_type",
+        "drop_off_type",
+        "shape_dist_traveled",
+        "timepoint",
+    ]
+
+    routes_header = [
         "route_id",
         "agency_id",
         "route_short_name",
@@ -401,44 +435,134 @@ def generate_routes_txt(operatorInfo: dict) -> str:
         "route_text_color",
     ]
 
-    headerStr = ",".join(header)
+    stops_header = [
+        "stop_id",
+        "stop_code",
+        "stop_name",
+        "stop_desc",
+        "stop_lat",
+        "stop_lon",
+        "zone_id",
+        "stop_url",
+        "location_type",
+        "parent_station",
+        "stop_timezone",
+        "wheelchair_boarding",
+    ]
 
-    body = []
+    trips_header_str = ",".join(trips_header)
+    stop_times_header_str = ",".join(stop_times_header)
+    routes_header_str = ",".join(routes_header)
+    stops_header_str = ",".join(stops_header)
 
-    # ターゲットとなるJSONのパス
-    target_json_path = "mini-tokyo-3d/data/railways.json"
+    trips_body = []
+    stop_times_body = []
+    routes_body = []
+    stops_body = []
 
-    # JSONをオブジェクトとして読み込み
-    with open(target_json_path, "r", encoding="UTF-8") as f:
+    # "railways.json"をオブジェクトとして読み込み
+    with open(railways_json_path, "r", encoding="UTF-8") as f:
         railways_obj = json.load(f)
 
-    # route_id
-    route_id = 1
+    # "stations.json"をオブジェクトとして読み込み
+    with open(stations_json_path, "r", encoding="UTF-8") as f:
+        stations_obj = json.load(f)
 
-    for railway_obj in railways_obj:
-        # 部分一致
-        if operatorInfo["railway_id"] in railway_obj["id"]:
-            route_name = railway_obj["title"]["ja"]
-            route_color = railway_obj["color"][1:]  # カラーコードの最初の"#"を取り除く
+    # "train-timetables/*.json"をオブジェクトとして読み込み
+    for path in glob.glob(
+        train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json"
+    ):
+        with open(path, "r", encoding="UTF-8") as f:
+            timetables_obj = json.load(f)
 
-            route = [
-                str(route_id),
-                operatorInfo["agency_id"],
+        # 時刻表を1要素ずつ処理
+        for timetable_obj in timetables_obj:
+
+            # 経路ID
+            route_id = timetable_obj["r"]
+
+            # 便ID
+            trip_id = timetable_obj["id"]
+
+            # 列車の方向
+            direction = timetable_obj["d"]
+
+            # 運行日ID
+            service_id = trip_id_2_service_id(trip_id)
+
+            # 終点の駅名（山手線等、終点が設定されていないものもあるので、"ds"が存在するかを先に確認）
+            headsign = ""
+            if "ds" in timetable_obj.keys():
+                # （"ds"が複数設定されているものが存在しており、0要素目を選択する形で問題無いか検討中）
+                headsign_obj = station_id_2_station_obj(
+                    stations_obj, timetable_obj["ds"][0]
+                )
+                headsign = headsign_obj["title"]["ja"]
+
+            # 経路情報オブジェクト
+            route_obj = route_id_2_route_obj(railways_obj, route_id)
+
+            # 方向ID（"ascending"と一致した場合は"0"、"descending"と一致した場合は"1"）
+            direction_id = "0" if route_obj["ascending"] == direction else "1"
+
+            # 便結合ID（路線を跨ぐような列車は、"block_id"に次の便IDを設定。設定されていないものもあるので、"nt"が存在するかを先に確認）
+            block_id = ""
+            if "nt" in timetable_obj.keys():
+                # （"nt"が複数設定されているものが存在しており、0要素目を選択する形で問題無いか検討中）
+                block_id = timetable_obj["nt"][0]
+
+            trip = [
+                route_id,
+                service_id,
+                trip_id,
+                headsign,
                 "",
-                route_name,
+                direction_id,
+                block_id,
                 "",
-                "2",  # 鉄道は"2"を指定する
                 "",
-                route_color,
                 "",
             ]
 
-            body.append(",".join(route))
-            route_id += 1
+            trips_body.append(",".join(trip))
 
-    bodyStr = "\n".join(body)
+    trips_body_str = "\n".join(trips_body)
 
-    return headerStr + "\n" + bodyStr
+    return {"trips_txt": trips_header_str + "\n" + trips_body_str}
+
+
+# 便IDから運行日IDに変換
+def trip_id_2_service_id(trip_id: str) -> str:
+
+    if "Weekday" in trip_id:
+        return "0"  # 平日ダイヤ（"0"）
+
+    elif "SaturdayHoliday" in trip_id:
+        return "1"  # 土曜・日曜ダイヤ（"1"）
+
+    elif "Saturday" in trip_id:
+        return "2"  # 土曜ダイヤ（"2"）
+
+    elif "Holiday" in trip_id:
+        return "3"  # 日曜ダイヤ（"3"）
+
+    else:
+        print("定義されていない運行区分です。")
+        return "-1"
+
+
+# 全ての駅情報が格納されたオブジェクトを利用して、駅IDと一致する駅情報オブジェクトを探索
+def station_id_2_station_obj(stations_obj: dict, station_id: str) -> dict:
+    for station_obj in stations_obj:
+        if station_id == station_obj["id"]:
+            return station_obj
+
+
+# 全ての経路情報が格納されたオブジェクトを利用して、経路IDと一致する経路情報オブジェクトを探索
+def route_id_2_route_obj(routes_obj: dict, route_id: str) -> dict:
+    for route_obj in routes_obj:
+        if route_id == route_obj["id"]:
+            return route_obj
 
 
 if __name__ == "__main__":
