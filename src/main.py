@@ -205,12 +205,15 @@ def main():
             text = generate_feed_info_txt(operator_info, start_date, end_date)
             f.write(text)
 
+        texts = generate_trips_stop_times_stops_routes_txt(operator_info)
+
         # trips.txtの生成
         with open("dist/trips.txt", "w", encoding="UTF-8") as f:
-            text = generate_trips_stop_times_stops_routes_txt(operator_info)[
-                "trips_txt"
-            ]
-            f.write(text)
+            f.write(texts["trips_txt"])
+
+        # routes.txtの生成
+        with open("dist/routes.txt", "w", encoding="UTF-8") as f:
+            f.write(texts["routes_txt"])
 
         # zip圧縮
         with zipfile.ZipFile(
@@ -475,6 +478,26 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         with open(path, "r", encoding="UTF-8") as f:
             timetables_obj = json.load(f)
 
+        # 経路ID（0番目の要素のIDを取得）
+        route_id = timetables_obj[0]["r"]
+
+        # 経路情報オブジェクト
+        route_obj = get_route_obj_from_route_id(railways_obj, route_id)
+
+        route = [
+            route_id,
+            operator_info["agency_id"],
+            "",
+            route_obj["title"]["ja"],
+            "",
+            "2",  # 鉄道は"2"を指定する
+            "",
+            route_obj["color"][1:],  # カラーコードの最初の"#"を取り除く
+            "",
+        ]
+
+        routes_body.append(",".join(route))
+
         # 時刻表を1要素ずつ処理
         for timetable_obj in timetables_obj:
 
@@ -488,19 +511,19 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             direction = timetable_obj["d"]
 
             # 運行日ID
-            service_id = trip_id_2_service_id(trip_id)
+            service_id = get_service_id_from_trip_id(trip_id)
 
             # 終点の駅名（山手線等、終点が設定されていないものもあるので、"ds"が存在するかを先に確認）
             headsign = ""
             if "ds" in timetable_obj.keys():
                 # （"ds"が複数設定されているものが存在しており、0要素目を選択する形で問題無いか検討中）
-                headsign_obj = station_id_2_station_obj(
+                headsign_obj = get_station_obj_from_station_id(
                     stations_obj, timetable_obj["ds"][0]
                 )
                 headsign = headsign_obj["title"]["ja"]
 
             # 経路情報オブジェクト
-            route_obj = route_id_2_route_obj(railways_obj, route_id)
+            route_obj = get_route_obj_from_route_id(railways_obj, route_id)
 
             # 方向ID（"ascending"と一致した場合は"0"、"descending"と一致した場合は"1"）
             direction_id = "0" if route_obj["ascending"] == direction else "1"
@@ -526,13 +549,17 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
             trips_body.append(",".join(trip))
 
+    routes_body_str = "\n".join(routes_body)
     trips_body_str = "\n".join(trips_body)
 
-    return {"trips_txt": trips_header_str + "\n" + trips_body_str}
+    return {
+        "routes_txt": routes_header_str + "\n" + routes_body_str,
+        "trips_txt": trips_header_str + "\n" + trips_body_str,
+    }
 
 
 # 便IDから運行日IDに変換
-def trip_id_2_service_id(trip_id: str) -> str:
+def get_service_id_from_trip_id(trip_id: str) -> str:
 
     if "Weekday" in trip_id:
         return "0"  # 平日ダイヤ（"0"）
@@ -552,14 +579,14 @@ def trip_id_2_service_id(trip_id: str) -> str:
 
 
 # 全ての駅情報が格納されたオブジェクトを利用して、駅IDと一致する駅情報オブジェクトを探索
-def station_id_2_station_obj(stations_obj: dict, station_id: str) -> dict:
+def get_station_obj_from_station_id(stations_obj: dict, station_id: str) -> dict:
     for station_obj in stations_obj:
         if station_id == station_obj["id"]:
             return station_obj
 
 
 # 全ての経路情報が格納されたオブジェクトを利用して、経路IDと一致する経路情報オブジェクトを探索
-def route_id_2_route_obj(routes_obj: dict, route_id: str) -> dict:
+def get_route_obj_from_route_id(routes_obj: dict, route_id: str) -> dict:
     for route_obj in routes_obj:
         if route_id == route_obj["id"]:
             return route_obj
