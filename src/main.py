@@ -215,6 +215,10 @@ def main():
         with open("dist/routes.txt", "w", encoding="UTF-8") as f:
             f.write(texts["routes_txt"])
 
+        # stops.txtの生成
+        with open("dist/stops.txt", "w", encoding="UTF-8") as f:
+            f.write(texts["stops_txt"])
+
         # zip圧縮
         with zipfile.ZipFile(
             "dist/" + operator_info["gtfs_output_file_name"],
@@ -472,12 +476,15 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         stations_obj = json.load(f)
 
     # "train-timetables/*.json"をオブジェクトとして読み込み
-    for path in glob.glob(
-        train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json"
+    for path in sorted(
+        glob.glob(
+            train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json"
+        )
     ):
         with open(path, "r", encoding="UTF-8") as f:
             timetables_obj = json.load(f)
 
+        # ==================== routes.txtの生成部分 ==================== #
         # 経路ID（0番目の要素のIDを取得）
         route_id = timetables_obj[0]["r"]
 
@@ -497,7 +504,37 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         ]
 
         routes_body.append(",".join(route))
+        # ==================== routes.txtの生成部分 ==================== #
 
+        # ==================== stops.txtの生成部分 ==================== #
+        # 経路ID（0番目の要素のIDを取得）
+        route_id = timetables_obj[0]["r"]
+
+        # 駅情報を1要素ずつ処理
+        for station_obj in stations_obj:
+            # "railway"が設定されていないものもあるので、"railway"が存在するかを先に確認
+            if "railway" in station_obj.keys():
+                if station_obj["railway"] == route_id:
+
+                    stop = [
+                        station_obj["id"],
+                        "",
+                        station_obj["title"]["ja"],
+                        "",
+                        str(station_obj["coord"][1]),
+                        str(station_obj["coord"][0]),
+                        station_obj["id"],
+                        "",
+                        "0",  # 鉄道は"0"を指定で良いはず
+                        "",
+                        "",
+                        "",
+                    ]
+
+                    stops_body.append(",".join(stop))
+        # ==================== stops.txtの生成部分 ==================== #
+
+        # ==================== trips.txtの生成部分 ==================== #
         # 時刻表を1要素ずつ処理
         for timetable_obj in timetables_obj:
 
@@ -548,12 +585,15 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             ]
 
             trips_body.append(",".join(trip))
+        # ==================== trips.txtの生成部分 ==================== #
 
     routes_body_str = "\n".join(routes_body)
+    stops_body_str = "\n".join(stops_body)
     trips_body_str = "\n".join(trips_body)
 
     return {
         "routes_txt": routes_header_str + "\n" + routes_body_str,
+        "stops_txt": stops_header_str + "\n" + stops_body_str,
         "trips_txt": trips_header_str + "\n" + trips_body_str,
     }
 
