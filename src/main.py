@@ -235,7 +235,8 @@ def main():
                 # zip書き込み
                 zf.write(
                     path,
-                    arcname=os.path.splitext(operator_info["gtfs_output_file_name"])[0]
+                    arcname=os.path.splitext(
+                        operator_info["gtfs_output_file_name"])[0]
                     + "/"
                     + os.path.basename(path),
                 )
@@ -245,7 +246,8 @@ def main():
             os.remove(path)
 
         # 生成状況表示
-        print('"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
+        print(
+            '"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
 
 
 # agency.txtの生成
@@ -483,12 +485,16 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
     # "train-timetables/*.json"をオブジェクトとして読み込み
     for path in sorted(
         glob.glob(
-            train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json"
+            train_timetables_dirpath + "/" +
+            operator_info["agency_id"] + "-*.json"
         )
     ):
         # --------------------------- バグ対処用 --------------------------- #
         # 鶴見線、鶴見海芝浦支線、鶴見大川支線の一部のタイムテーブルに
         # 時間が記載されていないものが存在し、処理ができないため、処理をスキップさせる。
+
+        # -> バグ対処済みのsubmodule（https://github.com/fksms/mini-tokyo-3d.git）に切り替えたため、コメントアウト
+        """
         if (
             path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumi.json"
             or path
@@ -497,6 +503,7 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiumishibaurabranch.json"
         ):
             continue
+        """
         # --------------------------- バグ対処用 --------------------------- #
 
         with open(path, "r", encoding="UTF-8") as f:
@@ -568,7 +575,8 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
             # 終点の駅情報オブジェクト
             headsign_obj = (
-                get_station_obj_from_station_id(stations_obj, timetable_obj["ds"][0])
+                get_station_obj_from_station_id(
+                    stations_obj, timetable_obj["ds"][0])
                 if "ds" in timetable_obj.keys()
                 else None
             )
@@ -583,7 +591,8 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             direction_id = "0" if route_obj["ascending"] == direction else "1"
 
             # 便結合ID（路線を跨ぐような列車は、"block_id"に次の便IDを設定）
-            block_id = timetable_obj["nt"][0] if "nt" in timetable_obj.keys() else ""
+            block_id = timetable_obj["nt"][0] if "nt" in timetable_obj.keys(
+            ) else ""
 
             trip = [
                 route_id,
@@ -650,7 +659,7 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
                     break
 
             # 部分集合の生成（該当の列車が実際に通る区間）
-            stations_list_subset = route_stations_list[start_index : end_index + 1]
+            stations_list_subset = route_stations_list[start_index: end_index + 1]
             # --------------- 部分配列の作成 --------------- #
 
             stop_counter = 0
