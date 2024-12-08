@@ -18,6 +18,7 @@ operators_info = [
     {
         "agency_id": "jreast",
         "agency_name": "JR東日本",
+        "agency_name_en": "East Japan Railway",
         "agency_url": "",
         "gtfs_output_file_name": "JR-East-Train.gtfs.zip",
     },
@@ -25,6 +26,7 @@ operators_info = [
     {
         "agency_id": "keio",
         "agency_name": "京王電鉄",
+        "agency_name_en": "Keio Corporation",
         "agency_url": "",
         "gtfs_output_file_name": "Keio-Train.gtfs.zip",
     },
@@ -32,6 +34,7 @@ operators_info = [
     {
         "agency_id": "mir",
         "agency_name": "首都圏新都市鉄道",
+        "agency_name_en": "Metropolitan Intercity Railway",
         "agency_url": "",
         "gtfs_output_file_name": "MIR-Train.gtfs.zip",
     },
@@ -39,6 +42,7 @@ operators_info = [
     {
         "agency_id": "sotetsu",
         "agency_name": "相模鉄道",
+        "agency_name_en": "Sagami Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Sotetsu-Train.gtfs.zip",
     },
@@ -46,6 +50,7 @@ operators_info = [
     {
         "agency_id": "tamamonorail",
         "agency_name": "多摩都市モノレール",
+        "agency_name_en": "Tokyo Tama Intercity Monorail",
         "agency_url": "",
         "gtfs_output_file_name": "TamaMonorail-Train.gtfs.zip",
     },
@@ -53,6 +58,7 @@ operators_info = [
     {
         "agency_id": "tobu",
         "agency_name": "東武鉄道",
+        "agency_name_en": "Tobu Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Tobu-Train.gtfs.zip",
     },
@@ -60,6 +66,7 @@ operators_info = [
     {
         "agency_id": "toei",
         "agency_name": "東京都交通局",
+        "agency_name_en": "Tokyo Metropolitan Bureau of Transportation",
         "agency_url": "",
         "gtfs_output_file_name": "Toei-Train.gtfs.zip",
     },
@@ -67,6 +74,7 @@ operators_info = [
     {
         "agency_id": "tokyometro",
         "agency_name": "東京メトロ",
+        "agency_name_en": "Tokyo Metro",
         "agency_url": "",
         "gtfs_output_file_name": "TokyoMetro-Train.gtfs.zip",
     },
@@ -74,6 +82,7 @@ operators_info = [
     {
         "agency_id": "twr",
         "agency_name": "東京臨海高速鉄道",
+        "agency_name_en": "Tokyo Waterfront Area Rapid Transit",
         "agency_url": "",
         "gtfs_output_file_name": "TWR-Train.gtfs.zip",
     },
@@ -81,6 +90,7 @@ operators_info = [
     {
         "agency_id": "yokohamamunicipal",
         "agency_name": "横浜市交通局",
+        "agency_name_en": "Yokohama City Transportation Bureau",
         "agency_url": "",
         "gtfs_output_file_name": "YokohamaMunicipal-Train.gtfs.zip",
     },
@@ -89,6 +99,7 @@ operators_info = [
     {
         "agency_id": "keikyu",
         "agency_name": "京急電鉄",
+        "agency_name_en": "Keikyu Corporation",
         "agency_url": "",
         "gtfs_output_file_name": "Keikyu-Train.gtfs.zip",
     },
@@ -96,6 +107,7 @@ operators_info = [
     {
         "agency_id": "keisei",
         "agency_name": "京成電鉄",
+        "agency_name_en": "Keisei Electric Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Keisei-Train.gtfs.zip",
     },
@@ -103,6 +115,7 @@ operators_info = [
     {
         "agency_id": "odakyu",
         "agency_name": "小田急電鉄",
+        "agency_name_en": "Odakyu Electric Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Odakyu-Train.gtfs.zip",
     },
@@ -110,6 +123,7 @@ operators_info = [
     {
         "agency_id": "seibu",
         "agency_name": "西武鉄道",
+        "agency_name_en": "Seibu Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Seibu-Train.gtfs.zip",
     },
@@ -117,6 +131,7 @@ operators_info = [
     {
         "agency_id": "tokyu",
         "agency_name": "東急電鉄",
+        "agency_name_en": "Tokyu Corporation",
         "agency_url": "",
         "gtfs_output_file_name": "Tokyu-Train.gtfs.zip",
     },
@@ -124,6 +139,7 @@ operators_info = [
     {
         "agency_id": "minatomirai",
         "agency_name": "横浜高速鉄道（みなとみらい線）",
+        "agency_name_en": "Yokohama Minatomirai Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Minatomirai-Train.gtfs.zip",
     },
@@ -131,6 +147,7 @@ operators_info = [
     {
         "agency_id": "saitamarailway",
         "agency_name": "埼玉高速鉄道",
+        "agency_name_en": "Saitama Railway",
         "agency_url": "",
         "gtfs_output_file_name": "SR-Train.gtfs.zip",
     },
@@ -138,6 +155,7 @@ operators_info = [
     {
         "agency_id": "toyorapid",
         "agency_name": "東葉高速鉄道",
+        "agency_name_en": "Toyo Rapid Railway",
         "agency_url": "",
         "gtfs_output_file_name": "TOYO-Train.gtfs.zip",
     },
@@ -145,6 +163,7 @@ operators_info = [
     {
         "agency_id": "yurikamome",
         "agency_name": "ゆりかもめ",
+        "agency_name_en": "Yurikamome",
         "agency_url": "",
         "gtfs_output_file_name": "Yurikamome-Train.gtfs.zip",
     },
@@ -153,6 +172,7 @@ operators_info = [
     {
         "agency_id": "tokyomonorail",
         "agency_name": "東京モノレール",
+        "agency_name_en": "Tokyo Monorail",
         "agency_url": "",
         "gtfs_output_file_name": "TokyoMonorail-Train.gtfs.zip",
     },
@@ -160,6 +180,7 @@ operators_info = [
     {
         "agency_id": "shinkeisei",
         "agency_name": "新京成電鉄",
+        "agency_name_en": "Shin-Keisei Electric Railway",
         "agency_url": "",
         "gtfs_output_file_name": "ShinKeisei-Train.gtfs.zip",
     },
@@ -167,6 +188,7 @@ operators_info = [
     {
         "agency_id": "hokuso",
         "agency_name": "北総鉄道",
+        "agency_name_en": "Hokuso-Railway",
         "agency_url": "",
         "gtfs_output_file_name": "Hokuso-Train.gtfs.zip",
     },
@@ -206,7 +228,7 @@ def main():
             text = generate_feed_info_txt(operator_info, start_date, end_date)
             f.write(text)
 
-        texts = generate_trips_stop_times_stops_routes_txt(operator_info)
+        texts = generate_trips_stop_times_stops_routes_translations_txt(operator_info)
 
         # trips.txtの生成
         with open("dist/trips.txt", "w", encoding="UTF-8") as f:
@@ -224,6 +246,10 @@ def main():
         with open("dist/stop_times.txt", "w", encoding="UTF-8") as f:
             f.write(texts["stop_times_txt"])
 
+        # translations.txtの生成
+        with open("dist/translations.txt", "w", encoding="UTF-8") as f:
+            f.write(texts["translations_txt"])
+
         # zip圧縮
         with zipfile.ZipFile(
             "dist/" + operator_info["gtfs_output_file_name"],
@@ -235,10 +261,7 @@ def main():
                 # zip書き込み
                 zf.write(
                     path,
-                    arcname=os.path.splitext(
-                        operator_info["gtfs_output_file_name"])[0]
-                    + "/"
-                    + os.path.basename(path),
+                    arcname=os.path.splitext(operator_info["gtfs_output_file_name"])[0] + "/" + os.path.basename(path),
                 )
 
         # テキストファイルを全て削除
@@ -246,8 +269,7 @@ def main():
             os.remove(path)
 
         # 生成状況表示
-        print(
-            '"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
+        print('"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
 
 
 # agency.txtの生成
@@ -303,33 +325,16 @@ def generate_calendar_txt(start_date: datetime, end_date: datetime) -> str:
     body = []
 
     # 平日ダイヤ（"0"）
-    body.append(
-        "0,1,1,1,1,1,0,0,"
-        + start_date.strftime("%Y%m%d")
-        + ","
-        + end_date.strftime("%Y%m%d")
-    )
+    body.append("0,1,1,1,1,1,0,0," + start_date.strftime("%Y%m%d") + "," + end_date.strftime("%Y%m%d"))
+
     # 土曜・日曜ダイヤ（"1"）
-    body.append(
-        "1,0,0,0,0,0,1,1,"
-        + start_date.strftime("%Y%m%d")
-        + ","
-        + end_date.strftime("%Y%m%d")
-    )
+    body.append("1,0,0,0,0,0,1,1," + start_date.strftime("%Y%m%d") + "," + end_date.strftime("%Y%m%d"))
+
     # 土曜ダイヤ（"2"）
-    body.append(
-        "2,0,0,0,0,0,1,0,"
-        + start_date.strftime("%Y%m%d")
-        + ","
-        + end_date.strftime("%Y%m%d")
-    )
+    body.append("2,0,0,0,0,0,1,0," + start_date.strftime("%Y%m%d") + "," + end_date.strftime("%Y%m%d"))
+
     # 日曜ダイヤ（"3"）
-    body.append(
-        "3,0,0,0,0,0,0,1,"
-        + start_date.strftime("%Y%m%d")
-        + ","
-        + end_date.strftime("%Y%m%d")
-    )
+    body.append("3,0,0,0,0,0,0,1," + start_date.strftime("%Y%m%d") + "," + end_date.strftime("%Y%m%d"))
 
     body_str = "\n".join(body)
 
@@ -363,9 +368,7 @@ def generate_calendar_dates_txt(holidays: list) -> str:
 
 
 # feed_info.txtの生成
-def generate_feed_info_txt(
-    operator_info: dict, start_date: datetime, end_date: datetime
-) -> str:
+def generate_feed_info_txt(operator_info: dict, start_date: datetime, end_date: datetime) -> str:
 
     header = [
         "feed_publisher_name",
@@ -399,8 +402,9 @@ def generate_feed_info_txt(
 # trips.txt
 # stop_times.txt
 # stops.txt
-# routes.txtの生成
-def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
+# routes.txt
+# translations.txtの生成
+def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict) -> dict:
 
     # 列車時刻表の格納場所
     train_timetables_dirpath = "mini-tokyo-3d/data/train-timetables"
@@ -464,15 +468,45 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         "wheelchair_boarding",
     ]
 
+    translations_header = [
+        "table_name",
+        "field_name",
+        "field_value",
+        "language",
+        "translation",
+    ]
+
     trips_header_str = ",".join(trips_header)
     stop_times_header_str = ",".join(stop_times_header)
     routes_header_str = ",".join(routes_header)
     stops_header_str = ",".join(stops_header)
+    translations_header_str = ",".join(translations_header)
 
     trips_body = []
     stop_times_body = []
     routes_body = []
     stops_body = []
+    translations_body = []
+
+    translation = [
+        "agency",
+        "agency_name",
+        operator_info["agency_name"],
+        "ja",
+        operator_info["agency_name"],
+    ]
+
+    translations_body.append(",".join(translation))
+
+    translation = [
+        "agency",
+        "agency_name",
+        operator_info["agency_name"],
+        "en",
+        operator_info["agency_name_en"],
+    ]
+
+    translations_body.append(",".join(translation))
 
     # "railways.json"をオブジェクトとして読み込み
     with open(railways_json_path, "r", encoding="UTF-8") as f:
@@ -483,33 +517,27 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         stations_obj = json.load(f)
 
     # "train-timetables/*.json"をオブジェクトとして読み込み
-    for path in sorted(
-        glob.glob(
-            train_timetables_dirpath + "/" +
-            operator_info["agency_id"] + "-*.json"
-        )
-    ):
-        # --------------------------- バグ対処用 --------------------------- #
+    for path in sorted(glob.glob(train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json")):
+
+        # --------------------------- バグ対処用（ここから） --------------------------- #
         # 鶴見線、鶴見海芝浦支線、鶴見大川支線の一部のタイムテーブルに
         # 時間が記載されていないものが存在し、処理ができないため、処理をスキップさせる。
 
         # -> バグ対処済みのsubmodule（https://github.com/fksms/mini-tokyo-3d.git）に切り替えたため、コメントアウト
         """
         if (
-            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumi.json"
-            or path
-            == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiokawabranch.json"
-            or path
-            == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiumishibaurabranch.json"
+            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumi.json" or
+            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiokawabranch.json" or
+            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiumishibaurabranch.json"
         ):
             continue
         """
-        # --------------------------- バグ対処用 --------------------------- #
+        # --------------------------- バグ対処用（ここまで） --------------------------- #
 
         with open(path, "r", encoding="UTF-8") as f:
             timetables_obj = json.load(f)
 
-        # ==================== routes.txtの生成部分 ==================== #
+        # ==================== routes.txt、translations.txtの生成部分（ここから） ==================== #
         # 経路ID（0番目の要素のIDを取得）
         route_id = timetables_obj[0]["r"]
 
@@ -529,9 +557,29 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
         ]
 
         routes_body.append(",".join(route))
-        # ==================== routes.txtの生成部分 ==================== #
 
-        # ==================== stops.txtの生成部分 ==================== #
+        translation = [
+            "routes",
+            "route_long_name",
+            route_obj["title"]["ja"],
+            "ja",
+            route_obj["title"]["ja"],
+        ]
+
+        translations_body.append(",".join(translation))
+
+        translation = [
+            "routes",
+            "route_long_name",
+            route_obj["title"]["ja"],
+            "en",
+            route_obj["title"]["en"],
+        ]
+
+        translations_body.append(",".join(translation))
+        # ==================== routes.txt、translations.txtの生成部分（ここまで） ==================== #
+
+        # ==================== stops.txt、translations.txtの生成部分（ここから） ==================== #
         # 経路ID（0番目の要素のIDを取得）
         route_id = timetables_obj[0]["r"]
 
@@ -555,12 +603,32 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
                 ]
 
                 stops_body.append(",".join(stop))
-        # ==================== stops.txtの生成部分 ==================== #
+
+                translation = [
+                    "stops",
+                    "stop_name",
+                    station_obj["title"]["ja"],
+                    "ja",
+                    station_obj["title"]["ja"],
+                ]
+
+                translations_body.append(",".join(translation))
+
+                translation = [
+                    "stops",
+                    "stop_name",
+                    station_obj["title"]["ja"],
+                    "en",
+                    station_obj["title"]["en"],
+                ]
+
+                translations_body.append(",".join(translation))
+        # ==================== stops.txt、translations.txtの生成部分（ここまで） ==================== #
 
         # 時刻表を1要素ずつ処理
         for timetable_obj in timetables_obj:
 
-            # ==================== trips.txtの生成部分 ==================== #
+            # ==================== trips.txt、translations.txtの生成部分（ここから） ==================== #
             # 経路ID
             route_id = timetable_obj["r"]
 
@@ -574,15 +642,13 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             service_id = get_service_id_from_trip_id(trip_id)
 
             # 終点の駅情報オブジェクト
-            headsign_obj = (
-                get_station_obj_from_station_id(
-                    stations_obj, timetable_obj["ds"][0])
-                if "ds" in timetable_obj.keys()
-                else None
-            )
+            headsign_obj = get_station_obj_from_station_id(stations_obj, timetable_obj["ds"][0]) if "ds" in timetable_obj.keys() else None
 
             # 終点の駅名
             headsign = headsign_obj["title"]["ja"] if headsign_obj is not None else ""
+
+            # 終点の駅名（英語）
+            headsign_en = headsign_obj["title"]["en"] if headsign_obj is not None else ""
 
             # 経路情報オブジェクト
             route_obj = get_route_obj_from_route_id(railways_obj, route_id)
@@ -591,8 +657,7 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             direction_id = "0" if route_obj["ascending"] == direction else "1"
 
             # 便結合ID（路線を跨ぐような列車は、"block_id"に次の便IDを設定）
-            block_id = timetable_obj["nt"][0] if "nt" in timetable_obj.keys(
-            ) else ""
+            block_id = timetable_obj["nt"][0] if "nt" in timetable_obj.keys() else ""
 
             trip = [
                 route_id,
@@ -608,9 +673,29 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             ]
 
             trips_body.append(",".join(trip))
-            # ==================== trips.txtの生成部分 ==================== #
 
-            # ==================== stop_times.txtの生成部分 ==================== #
+            translation = [
+                "trips",
+                "trip_headsign",
+                headsign,
+                "ja",
+                headsign,
+            ]
+
+            translations_body.append(",".join(translation))
+
+            translation = [
+                "trips",
+                "trip_headsign",
+                headsign,
+                "en",
+                headsign_en,
+            ]
+
+            translations_body.append(",".join(translation))
+            # ==================== trips.txt、translations.txtの生成部分（ここまで） ==================== #
+
+            # ==================== stop_times.txtの生成部分（ここから） ==================== #
             # 経路ID
             route_id = timetable_obj["r"]
 
@@ -624,14 +709,10 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             route_obj = get_route_obj_from_route_id(railways_obj, route_id)
 
             # 出発駅
-            origin_station = (
-                timetable_obj["os"][0] if "os" in timetable_obj.keys() else ""
-            )
+            origin_station = timetable_obj["os"][0] if "os" in timetable_obj.keys() else ""
 
             # 終点駅
-            destination_station = (
-                timetable_obj["ds"][0] if "ds" in timetable_obj.keys() else ""
-            )
+            destination_station = timetable_obj["ds"][0] if "ds" in timetable_obj.keys() else ""
 
             # 該当経路を最初に通過・停車する駅
             start_station = timetable_obj["tt"][0]["s"]
@@ -639,14 +720,10 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
             # 該当経路を最後に通過・停車する駅
             end_station = timetable_obj["tt"][-1]["s"]
 
-            # --------------- 部分配列の作成 --------------- #
+            # --------------- 部分配列の作成（ここから） --------------- #
             # 経路の駅一覧リスト
             # （昇順"ascending"の場合はそのまま、降順"descending"の場合は反転させる）
-            route_stations_list = (
-                route_obj["stations"]
-                if route_obj["ascending"] == direction
-                else list(reversed(route_obj["stations"]))
-            )
+            route_stations_list = route_obj["stations"] if route_obj["ascending"] == direction else list(reversed(route_obj["stations"]))
 
             # "start_station"の位置を前からサーチ
             start_index = route_stations_list.index(start_station)
@@ -660,7 +737,7 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
             # 部分集合の生成（該当の列車が実際に通る区間）
             stations_list_subset = route_stations_list[start_index: end_index + 1]
-            # --------------- 部分配列の作成 --------------- #
+            # --------------- 部分配列の作成（ここまで） --------------- #
 
             stop_counter = 0
 
@@ -670,9 +747,7 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
                 if station == timetable_obj["tt"][stop_counter]["s"]:
 
                     # 出発時刻と到着時刻
-                    arrival_time, departure_time = get_a_d_times_from_timetable_element(
-                        timetable_obj["tt"][stop_counter]
-                    )
+                    arrival_time, departure_time = get_a_d_times_from_timetable_element(timetable_obj["tt"][stop_counter])
 
                     # 乗車可能なら0、乗車不可なら1
                     pickup_type = "1" if station == destination_station else "0"
@@ -715,18 +790,27 @@ def generate_trips_stop_times_stops_routes_txt(operator_info: dict) -> dict:
 
                     stop_times_body.append(",".join(stop_time))
 
-            # ==================== stop_times.txtの生成部分 ==================== #
+            # ==================== stop_times.txtの生成部分（ここまで） ==================== #
 
+    # ソート
+    translations_body.sort()
+
+    # 重複削除
+    translations_body = list(dict.fromkeys(translations_body))
+
+    # 結合
     routes_body_str = "\n".join(routes_body)
     stops_body_str = "\n".join(stops_body)
     trips_body_str = "\n".join(trips_body)
     stop_times_body_str = "\n".join(stop_times_body)
+    translations_body_str = "\n".join(translations_body)
 
     return {
         "routes_txt": routes_header_str + "\n" + routes_body_str,
         "stops_txt": stops_header_str + "\n" + stops_body_str,
         "trips_txt": trips_header_str + "\n" + trips_body_str,
         "stop_times_txt": stop_times_header_str + "\n" + stop_times_body_str,
+        "translations_txt": translations_header_str + "\n" + translations_body_str,
     }
 
 
