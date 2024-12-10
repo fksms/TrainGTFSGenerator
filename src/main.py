@@ -900,8 +900,6 @@ def get_block_id(train_timetables_obj: dict, current_timetable_obj: dict) -> str
                 # 時刻表を1要素ずつ処理
                 for timetable_obj in timetables_obj:
 
-                    # print(timetable_obj)
-
                     # 列車IDを比較（等しい場合は先に進む）
                     if previous_train_id == timetable_obj["id"]:
 
@@ -968,18 +966,6 @@ def normalize_time(time: str) -> str:
     normalized_hour_str = str(hour)
 
     return normalized_hour_str + ":" + minute_str + ":00"
-
-
-# 前の経路（"previous_train"）で他の列車と分離していないかをチェック
-# （分離された場合はtrue）
-def train_was_divided(current_timetable_obj: dict) -> bool:
-    pass
-
-
-# 次の経路（"next_train"）で他の列車と連結されるかをチェック
-# （連結される場合はtrue）
-def train_is_coupled(current_timetable_object: dict) -> bool:
-    pass
 
 
 if __name__ == "__main__":
