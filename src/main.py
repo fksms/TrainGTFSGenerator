@@ -1,4 +1,5 @@
 import os
+import sys
 import glob
 import zipfile
 import datetime
@@ -197,6 +198,15 @@ operators_info = [
 
 def main():
 
+    # 列車時刻表の格納場所
+    train_timetables_dirpath = "mini-tokyo-3d/data/train-timetables"
+
+    # 列車種別表の格納場所
+    railways_json_path = "mini-tokyo-3d/data/railways.json"
+
+    # 駅情報の格納場所
+    stations_json_path = "mini-tokyo-3d/data/stations.json"
+
     # 祝日のリストを作成
     holidays = []
     for holiday in jpholiday.between(start_date, end_date):
@@ -206,6 +216,23 @@ def main():
     for path in glob.glob("dist/*.zip"):
         os.remove(path)
 
+    # "railways.json"をオブジェクトとして読み込み
+    with open(railways_json_path, "r", encoding="UTF-8") as f:
+        railways_obj = json.load(f)
+
+    # "stations.json"をオブジェクトとして読み込み
+    with open(stations_json_path, "r", encoding="UTF-8") as f:
+        stations_obj = json.load(f)
+
+    # "train-timetables/*.json"をオブジェクトとして読み込み
+    train_timetables_obj = {}
+
+    # キーはファイル名（拡張子有り）（例：jreast-yamanote.json）
+    for path in sorted(glob.glob(train_timetables_dirpath + "/" + "*.json")):
+        with open(path, "r", encoding="UTF-8") as f:
+            train_timetables_obj[os.path.basename(path)] = json.load(f)
+
+    # オペレーター単位で処理
     for operator_info in operators_info:
 
         # agency.txtの生成
@@ -228,7 +255,7 @@ def main():
             text = generate_feed_info_txt(operator_info, start_date, end_date)
             f.write(text)
 
-        texts = generate_trips_stop_times_stops_routes_translations_txt(operator_info)
+        texts = generate_trips_stop_times_stops_routes_translations_txt(operator_info, railways_obj, stations_obj, train_timetables_obj)
 
         # trips.txtの生成
         with open("dist/trips.txt", "w", encoding="UTF-8") as f:
@@ -401,16 +428,7 @@ def generate_feed_info_txt(operator_info: dict, start_date: datetime, end_date: 
 # stops.txt
 # routes.txt
 # translations.txtの生成
-def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict) -> dict:
-
-    # 列車時刻表の格納場所
-    train_timetables_dirpath = "mini-tokyo-3d/data/train-timetables"
-
-    # 列車種別表の格納場所
-    railways_json_path = "mini-tokyo-3d/data/railways.json"
-
-    # 駅情報の格納場所
-    stations_json_path = "mini-tokyo-3d/data/stations.json"
+def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict, railways_obj: dict, stations_obj: dict, train_timetables_obj: dict) -> dict:
 
     trips_header = [
         "route_id",
@@ -506,34 +524,11 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict)
 
     translations_body.append(",".join(translation))
 
-    # "railways.json"をオブジェクトとして読み込み
-    with open(railways_json_path, "r", encoding="UTF-8") as f:
-        railways_obj = json.load(f)
+    # オペレーター単位でリストのサブセットを生成
+    train_timetables_subset = [value for key, value in train_timetables_obj.items() if key.startswith(operator_info["agency_id"])]
 
-    # "stations.json"をオブジェクトとして読み込み
-    with open(stations_json_path, "r", encoding="UTF-8") as f:
-        stations_obj = json.load(f)
-
-    # "train-timetables/*.json"をオブジェクトとして読み込み
-    for path in sorted(glob.glob(train_timetables_dirpath + "/" + operator_info["agency_id"] + "-*.json")):
-
-        # --------------------------- バグ対処用（ここから） --------------------------- #
-        # 鶴見線、鶴見海芝浦支線、鶴見大川支線の一部のタイムテーブルに
-        # 時間が記載されていないものが存在し、処理ができないため、処理をスキップさせる。
-
-        # -> バグ対処済みのsubmodule（https://github.com/fksms/mini-tokyo-3d.git）に切り替えたため、コメントアウト
-        """
-        if (
-            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumi.json" or
-            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiokawabranch.json" or
-            path == "mini-tokyo-3d/data/train-timetables/jreast-tsurumiumishibaurabranch.json"
-        ):
-            continue
-        """
-        # --------------------------- バグ対処用（ここまで） --------------------------- #
-
-        with open(path, "r", encoding="UTF-8") as f:
-            timetables_obj = json.load(f)
+    # "timetables"オブジェクトを1つずつ処理
+    for timetables_obj in train_timetables_subset:
 
         # ==================== routes.txt、translations.txtの生成部分（ここから） ==================== #
         # 経路ID（0番目の要素のIDを取得）
@@ -648,12 +643,6 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict)
             # 方向ID（"ascending"と一致した場合は"0"、"descending"と一致した場合は"1"）
             direction_id = "0" if route_obj["ascending"] == direction else "1"
 
-            # 便結合ID
-            # （1つ前の路線の便IDを設定）
-            # （始発の場合は設定無し）
-            # （列車が連結されて2つが1つになる場合は設定無し）
-            block_id = timetable_obj["pt"][0] if "pt" in timetable_obj.keys() and len(timetable_obj["pt"]) == 1 else ""
-
             # --------------- 行先標の追加（複数駅対応）（ここから） --------------- #
             headsign = ""
             headsign_en = ""
@@ -670,22 +659,6 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict)
             headsign_en = "/".join(headsigns_en)
             # --------------- 行先標の追加（複数駅対応）（ここまで） --------------- #
 
-            # --------------- 連結・分離情報の追加（ここから） --------------- #
-            jp_trip_desc = ""
-
-            if "pt" in timetable_obj.keys() and len(timetable_obj["pt"]) >= 2:
-                previous_trains = []
-                for pt in timetable_obj["pt"]:
-                    previous_trains.append(pt)
-                jp_trip_desc += timetable_obj["tt"][0]["s"] + " で " + " と ".join(previous_trains) + " を連結 "
-
-            if "nt" in timetable_obj.keys() and len(timetable_obj["nt"]) >= 2:
-                next_trains = []
-                for nt in timetable_obj["nt"]:
-                    next_trains.append(nt)
-                jp_trip_desc += timetable_obj["tt"][-1]["s"] + " で " + " と ".join(next_trains) + " に分離 "
-            # --------------- 連結・分離情報の追加（ここまで） --------------- #
-
             trip = [
                 route_id,
                 service_id,
@@ -693,11 +666,11 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict)
                 headsign,
                 "",
                 direction_id,
-                block_id,
+                get_block_id(train_timetables_obj, timetable_obj),
                 "",
                 "",
                 "",
-                jp_trip_desc,
+                get_description(timetable_obj),
             ]
 
             trips_body.append(",".join(trip))
@@ -862,7 +835,7 @@ def get_service_id_from_trip_id(trip_id: str) -> str:
 
     else:
         print("定義されていない運行区分です。")
-        return "-1"
+        sys.exit()
 
 
 # 全ての駅情報が格納されたオブジェクトを利用して、駅IDと一致する駅情報オブジェクトを探索
@@ -897,7 +870,73 @@ def get_a_d_times_from_timetable_element(element: dict) -> Tuple[str, str]:
     # "a"と"d"のどちらも存在しない場合
     else:
         print("不適切なタイムテーブルが存在します。")
-        return None
+        sys.exit()
+
+
+# 便結合IDの取得
+#
+# train_timetables_obj: "train-timetables/*.json"全てを読み込んだ辞書型のオブジェクト
+# current_timetable_obj: 処理中のタイムテーブルオブジェクト
+def get_block_id(train_timetables_obj: dict, current_timetable_obj: dict) -> str:
+
+    # "previous_train"が存在する場合
+    if "pt" in current_timetable_obj.keys():
+        previous_trains = current_timetable_obj["pt"]
+
+        # print(current_timetable_obj["id"])
+
+        # 前の経路で列車が連結されて2つが1つになった場合、片方の列車IDを代表として引き継ぐ
+        previous_train_id = previous_trains[0]
+
+        # 前の経路の経路ID
+        previous_route_id = ".".join(previous_train_id.split(".")[:2])
+
+        # "timetables"オブジェクトを1つずつ処理
+        for timetables_obj in train_timetables_obj.values():
+
+            # 経路IDを比較（等しい場合は先に進む）
+            if previous_route_id == timetables_obj[0]["r"]:
+
+                # 時刻表を1要素ずつ処理
+                for timetable_obj in timetables_obj:
+
+                    # 列車IDを比較（等しい場合は先に進む）
+                    if previous_train_id == timetable_obj["id"]:
+
+                        # 再帰
+                        return get_block_id(train_timetables_obj, timetable_obj)
+
+                # 該当の列車IDが見つからなかった場合
+                # print(previous_train_id + "が見つかりません。")
+
+        # 該当の経路IDが見つからなかった場合
+        # print(previous_route_id + "が見つかりません。")
+
+        # 前の経路の列車が見つからない場合、そのポイントで"block_id"を切り離す
+        return current_timetable_obj["id"]
+
+    # "previous_train"が存在しない場合
+    else:
+        return current_timetable_obj["id"]
+
+
+# 連結・分離情報の説明の取得
+def get_description(timetable_obj: dict) -> str:
+    jp_trip_desc = ""
+
+    if "pt" in timetable_obj.keys() and len(timetable_obj["pt"]) >= 2:
+        previous_trains = []
+        for pt in timetable_obj["pt"]:
+            previous_trains.append(pt)
+        jp_trip_desc += timetable_obj["tt"][0]["s"] + " で " + " と ".join(previous_trains) + " を連結 "
+
+    if "nt" in timetable_obj.keys() and len(timetable_obj["nt"]) >= 2:
+        next_trains = []
+        for nt in timetable_obj["nt"]:
+            next_trains.append(nt)
+        jp_trip_desc += timetable_obj["tt"][-1]["s"] + " で " + " と ".join(next_trains) + " に分離 "
+
+    return jp_trip_desc
 
 
 # "stop_times.txt"の"arrival_time"と"departure_time"カラムについて、
