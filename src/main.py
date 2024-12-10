@@ -1,14 +1,14 @@
 import os
 import sys
 import glob
+import json
 import zipfile
 import datetime
-import json
 from typing import Tuple
 
 import jpholiday
 
-# GTFSデータの有効期間
+# 生成するGTFSデータの有効期間
 start_date = datetime.date(2024, 1, 1)
 end_date = datetime.date(2025, 12, 31)
 
@@ -879,14 +879,14 @@ def get_a_d_times_from_timetable_element(element: dict) -> Tuple[str, str]:
 # current_timetable_obj: 処理中のタイムテーブルオブジェクト
 def get_block_id(train_timetables_obj: dict, current_timetable_obj: dict) -> str:
 
+    # 現在処理中の列車ID
+    current_train_id = current_timetable_obj["id"]
+
     # "previous_train"が存在する場合
     if "pt" in current_timetable_obj.keys():
-        previous_trains = current_timetable_obj["pt"]
 
-        # print(current_timetable_obj["id"])
-
-        # 前の経路で列車が連結されて2つが1つになった場合、片方の列車IDを代表として引き継ぐ
-        previous_train_id = previous_trains[0]
+        # 一つ前の経路の列車ID（前の経路で列車が連結されて2つが1つになった場合、片方の列車IDを代表として引き継ぐ）
+        previous_train_id = current_timetable_obj["pt"][0]
 
         # 前の経路の経路ID
         previous_route_id = ".".join(previous_train_id.split(".")[:2])
@@ -900,11 +900,20 @@ def get_block_id(train_timetables_obj: dict, current_timetable_obj: dict) -> str
                 # 時刻表を1要素ずつ処理
                 for timetable_obj in timetables_obj:
 
+                    # print(timetable_obj)
+
                     # 列車IDを比較（等しい場合は先に進む）
                     if previous_train_id == timetable_obj["id"]:
 
-                        # 再帰
-                        return get_block_id(train_timetables_obj, timetable_obj)
+                        # 現在から一つ前の経路で列車が分離されて1つが2つになった場合、0番目のIDであれば再帰してサーチを続ける
+                        if current_train_id == timetable_obj["nt"][0]:
+
+                            # 再帰
+                            return get_block_id(train_timetables_obj, timetable_obj)
+
+                        # 現在から一つ前の経路で列車が分離されて1つが2つになった場合、1番目以降のIDであれば"block_id"を新たに設定する
+                        else:
+                            return current_train_id
 
                 # 該当の列車IDが見つからなかった場合
                 # print(previous_train_id + "が見つかりません。")
@@ -913,11 +922,11 @@ def get_block_id(train_timetables_obj: dict, current_timetable_obj: dict) -> str
         # print(previous_route_id + "が見つかりません。")
 
         # 前の経路の列車が見つからない場合、そのポイントで"block_id"を切り離す
-        return current_timetable_obj["id"]
+        return current_train_id
 
     # "previous_train"が存在しない場合
     else:
-        return current_timetable_obj["id"]
+        return current_train_id
 
 
 # 連結・分離情報の説明の取得
