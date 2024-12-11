@@ -1,7 +1,7 @@
 # TrainGTFSGenerator
 
 列車時刻表、列車路線情報、駅情報の3つからGTFSデータを生成するためのスクリプトです。<br>
-列車時刻表、列車路線情報、駅情報の3つは[Mini Tokyo 3D](https://github.com/nagix/mini-tokyo-3d)のリポジトリ内のデータを使用しています。<br>
+列車時刻表、列車路線情報、駅情報の3つは[**Mini Tokyo 3D**](https://github.com/nagix/mini-tokyo-3d)のリポジトリ内のデータを使用しています。<br>
 Mini Tokyo 3Dの一部のJSONデータにバグが存在するため、自分のリポジトリに[フォーク](https://github.com/fksms/mini-tokyo-3d)し修正したものをSubmoduleとして取り込んでいます。<br>
 <br>
 
@@ -34,7 +34,13 @@ Mini Tokyo 3Dの一部のJSONデータにバグが存在するため、自分の
 <br>
 <br>
 
-## 利用方法
+## 生成済みGTFSのダウンロード
+
+生成済みGTFSは[Release](https://github.com/fksms/TrainGTFSGenerator/releases)からダウンロード可能です。<br>
+新規にReleaseを発行する場合は[Actions](https://github.com/fksms/TrainGTFSGenerator/actions)から手動でワークフローを実行する。<br>
+<br>
+
+## スクリプトの利用方法
 
 MacOSで実行する前提の手順です。<br>
 スクリプト実行後は`dist`フォルダにオペレーター毎のGTFSデータが生成されます。<br>
