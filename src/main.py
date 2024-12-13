@@ -712,12 +712,6 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict,
             # 経路情報オブジェクト
             route_obj = get_route_obj_from_route_id(railways_obj, route_id)
 
-            # 出発駅
-            origin_stations = timetable_obj["os"] if "os" in timetable_obj.keys() else []
-
-            # 終点駅
-            destination_stations = timetable_obj["ds"] if "ds" in timetable_obj.keys() else []
-
             # 該当経路を最初に通過・停車する駅
             start_station = timetable_obj["tt"][0]["s"]
 
@@ -754,10 +748,10 @@ def generate_trips_stop_times_stops_routes_translations_txt(operator_info: dict,
                     arrival_time, departure_time = get_a_d_times_from_timetable_element(timetable_obj["tt"][stop_counter])
 
                     # 乗車可能なら0、乗車不可なら1
-                    pickup_type = "1" if station in destination_stations else "0"
+                    pickup_type = "1" if index == len(stations_list_subset) - 1 and "nt" not in timetable_obj.keys() else "0"
 
                     # 降車可能なら0、降車不可なら1
-                    drop_off_type = "1" if station in origin_stations else "0"
+                    drop_off_type = "1" if index == 0 and "pt" not in timetable_obj.keys() else "0"
 
                     stop_time = [
                         trip_id,
