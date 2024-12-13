@@ -1,4 +1,5 @@
 import os
+import io
 import sys
 import glob
 import json
@@ -14,7 +15,6 @@ end_date = datetime.date(2025, 12, 31)
 
 # 各オペレーターの情報
 operators_info = [
-    # ---------------ODPTにあるやつ--------------- #
     # 東日本旅客鉄道（JR東日本）
     {
         "agency_id": "jreast",
@@ -95,7 +95,6 @@ operators_info = [
         "agency_url": "https://www.city.yokohama.lg.jp/kotsu/",
         "gtfs_output_file_name": "YokohamaMunicipal-Train.gtfs.zip",
     },
-    # -----------ODPTにないやつ（欲しい）----------- #
     # 京急電鉄
     {
         "agency_id": "keikyu",
@@ -168,7 +167,6 @@ operators_info = [
         "agency_url": "https://www.yurikamome.co.jp/",
         "gtfs_output_file_name": "Yurikamome-Train.gtfs.zip",
     },
-    # --------ODPTにないやつ（どっちでもいい）-------- #
     # 東京モノレール
     {
         "agency_id": "tokyomonorail",
@@ -212,10 +210,6 @@ def main():
     for holiday in jpholiday.between(start_date, end_date):
         holidays.append(holiday[0])
 
-    # dist内のzipファイルを全て削除
-    for path in glob.glob("dist/*.zip"):
-        os.remove(path)
-
     # "railways.json"をオブジェクトとして読み込み
     with open(railways_json_path, "r", encoding="UTF-8") as f:
         railways_obj = json.load(f)
@@ -235,62 +229,48 @@ def main():
     # オペレーター単位で処理
     for operator_info in operators_info:
 
-        # agency.txtの生成
-        with open("dist/agency.txt", "w", encoding="UTF-8") as f:
-            text = generate_agency_txt(operator_info)
-            f.write(text)
-
-        # calendar.txtの生成
-        with open("dist/calendar.txt", "w", encoding="UTF-8") as f:
-            text = generate_calendar_txt(start_date, end_date)
-            f.write(text)
-
-        # calendar_dates.txtの生成
-        with open("dist/calendar_dates.txt", "w", encoding="UTF-8") as f:
-            text = generate_calendar_dates_txt(holidays)
-            f.write(text)
-
-        # feed_info.txtの生成
-        with open("dist/feed_info.txt", "w", encoding="UTF-8") as f:
-            text = generate_feed_info_txt(operator_info, start_date, end_date)
-            f.write(text)
+        txt_files = {}
 
         texts = generate_trips_stop_times_stops_routes_translations_txt(operator_info, railways_obj, stations_obj, train_timetables_obj)
 
-        # trips.txtの生成
-        with open("dist/trips.txt", "w", encoding="UTF-8") as f:
-            f.write(texts["trips_txt"])
+        # agency.txt
+        txt_files["agency.txt"] = generate_agency_txt(operator_info)
 
-        # routes.txtの生成
-        with open("dist/routes.txt", "w", encoding="UTF-8") as f:
-            f.write(texts["routes_txt"])
+        # calendar.txt
+        txt_files["calendar.txt"] = generate_calendar_txt(start_date, end_date)
 
-        # stops.txtの生成
-        with open("dist/stops.txt", "w", encoding="UTF-8") as f:
-            f.write(texts["stops_txt"])
+        # calendar_dates.txt
+        txt_files["calendar_dates.txt"] = generate_calendar_dates_txt(holidays)
 
-        # stop_times.txtの生成
-        with open("dist/stop_times.txt", "w", encoding="UTF-8") as f:
-            f.write(texts["stop_times_txt"])
+        # feed_info.txt
+        txt_files["feed_info.txt"] = generate_feed_info_txt(operator_info, start_date, end_date)
 
-        # translations.txtの生成
-        with open("dist/translations.txt", "w", encoding="UTF-8") as f:
-            f.write(texts["translations_txt"])
+        # trips.txt
+        txt_files["trips.txt"] = texts["trips_txt"]
+
+        # routes.txt
+        txt_files["routes.txt"] = texts["routes_txt"]
+
+        # stops.txt
+        txt_files["stops.txt"] = texts["stops_txt"]
+
+        # stop_times.txt
+        txt_files["stop_times.txt"] = texts["stop_times_txt"]
+
+        # translations.txt
+        txt_files["translations.txt"] = texts["translations_txt"]
+
+        # zipファイルをメモリ上に生成
+        zip_buffer = io.BytesIO()
 
         # zip圧縮
-        with zipfile.ZipFile(
-            "dist/" + operator_info["gtfs_output_file_name"],
-            "w",
-            compression=zipfile.ZIP_DEFLATED,
-            compresslevel=-1,
-        ) as zf:
-            for path in glob.glob("dist/*.txt"):
-                # zip書き込み
-                zf.write(path, arcname=os.path.basename(path))
+        with zipfile.ZipFile(zip_buffer, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=-1) as zf:
+            for file_name, content in txt_files.items():
+                zf.writestr(file_name, content)
 
-        # テキストファイルを全て削除
-        for path in glob.glob("dist/*.txt"):
-            os.remove(path)
+        # zip出力
+        with open("dist/" + operator_info["gtfs_output_file_name"], "wb") as f:
+            f.write(zip_buffer.getvalue())
 
         # 生成状況表示
         print('"' + operator_info["gtfs_output_file_name"] + '" ' + "Generated")
